@@ -53,13 +53,10 @@ app.use(function(req, res, next){
 app.use(commentRoutes);
 app.use(campgroundRoutes);
 app.use(indexRoutes);
-
 	
-app.listen(3000,function()
-		  {
-	console.log("server is listening");
-});		
-		
+app.listen(process.env.PORT || 3000, function(){
+  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+});
 		
 		
 		
