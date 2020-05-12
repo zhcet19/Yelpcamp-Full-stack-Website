@@ -19,7 +19,7 @@ var seedDB = require("./seeds");
 var Comment = require("./models/comment");
 
 var User= require("./models/user")
-mongoose.connect('mongodb://localhost:27017/yelp_camp', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb+srv://faiz:faizamu@19@cluster0-vok6s.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
 app.use(express.static("public"));
 //seedDB();
 app.use(methodOverride("_method"));
