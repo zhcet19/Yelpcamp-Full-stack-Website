@@ -17,11 +17,13 @@ app.set("view engine","ejs");
 var Campground =require("./models/campgrounds"); 
 var seedDB = require("./seeds");
 var Comment = require("./models/comment");
-
 var User= require("./models/user")
-mongoose.connect('mongodb+srv://faiz:faizamu@19@cluster0-vok6s.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
+var url= process.env.DATABASEURL|| "mongodb://localhost:27017/yelp_camp"
+console.log(process.env.DATABASEURL);
+mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true});
 app.use(express.static("public"));
 //seedDB();
+//mongodb+srv://faiz:faizamu@19@cluster0-vok6s.mongodb.net/test?retryWrites=true&w=majority
 app.use(methodOverride("_method"));
 app.use(flash());
 app.use(expressSanitizer());
