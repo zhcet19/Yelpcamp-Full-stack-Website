@@ -7,5 +7,7 @@ This is a camping website that can be used by clients as well as individuals to 
 * Having used node.js,passport js,Mongoose odm,express.js in server-side i have used RESTful Routing with CRUD functionality.
 * Used MONGODB along with mongoose ODM.
 * For client-side used bootstrap,CSS and HTML.
+
+   MY ADDITIONS
 * Used MAPBOX API for mapping location of campgrounds.
 * Used STRIPE API for transactions and booking of campgrounds.
