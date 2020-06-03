@@ -5,21 +5,33 @@ var geocodingClient= mbxGeocoding({accessToken:'pk.eyJ1IjoiZmFpemFtdSIsImEiOiJja
 var Campground= require("../models/campgrounds");
 var middleware= require("../middleware/index.js");
 
-
-router.get("/campground",function(req,res){
-	
-	Campground.find({},function(err,allCampgrounds){
-		if(err)
-			{
-				console.log(err);
-				
-			}
-		else
-			{
-				res.render("campgrounds/index",{campground:allCampgrounds,currentUser:req.user});
-			}
-	});
+ //INDEX - show all campgrounds
+router.get("/campground", function(req, res){
+    
+    if(req.query.search) {
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        Campground.find({$or:[{name:regex},{location:regex},{"author.username":regex}]}, function(err, allCampgrounds){
+		
+           if(err||!allCampgrounds.length){
+               req.flash('error', 'No campgrounds matched your search. Please try again.');
+               res.redirect("back");
+           } else {
+              res.render("campgrounds/index",{campground:allCampgrounds,page:'campgrounds'});
+           }
+        });
+    }
+	else
+		{
+			Campground.find({}, function(err, allCampgrounds){
+           if(err){
+               console.log(err);
+           } else {
+              res.render("campgrounds/index",{campground:allCampgrounds,currentUser:req.user});
+           }
+        });
+		}
 });
+
 	router.post("/campground",middleware.isLoggedIn,function(req,res){
 	var name=req.body.name;
 	var price=req.body.price;	
@@ -112,6 +124,10 @@ router.delete("/campground/:id",middleware.checkOwnership,function(req, res){
    })
  
 });
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
+
 module.exports=router;
 
 

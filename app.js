@@ -23,7 +23,6 @@ console.log(process.env.DATABASEURL);
 mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true});
 app.use(express.static("public"));
 //seedDB();
-//mongodb+srv://faiz:faizamu@19@cluster0-vok6s.mongodb.net/test?retryWrites=true&w=majority
 app.use(methodOverride("_method"));
 app.use(flash());
 app.use(expressSanitizer());
